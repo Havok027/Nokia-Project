@@ -1,4 +1,37 @@
+# --- Dados Confidenciais (Nokia/TIM) ---
+# Ignora todas as planilhas de dados brutos
 *.xlsx
 *.csv
-*.exe
+*.xls
+*.xlsm
+
+# Ignora bases de dados locais
 database/
+
+# Ignora arquivos de texto com descrições temporárias ou manuais
+Descriçao de TSSR - NOKIA*.txt
+
+# --- Binários e Executáveis ---
+# Impede que o executável final ou instaladores subam para o Git
+*.exe
+*.msi
+*.bin
+
+# --- Python & Ambiente Virtual ---
+# Ignora a pasta do ambiente virtual (venv) para o repo não ficar pesado
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# --- Inteligência Artificial ---
+# Ignora arquivos temporários de treino e datasets de imagem locais
+datasets/
+temp_photos/
+*.log
+
+# --- Sistema e IDE ---
+.vscode/
+.idea/
+.DS_Store
