@@ -1,0 +1,105 @@
+1-Capa
+
+linha 10: tim br / coluna C
+linha 11: spazio / coluna AM
+linha 12: tim br / coluna AV
+linha 13: informação fornecida pelo supplier
+linha 14: data do dia
+linha 15: igual linha 12
+
+linha 20: spazio / coluna X
+linha 21: spazio / colunas T + U + V + W
+linha 22:
+linha 23: spazio / coluna AF
+linha 24: spazio / coluna AD
+
+linha 35: spazio / coluna AH
+linha 36: spazio / coluna AI
+linha 37: google earth
+linha 38:
+linha 39:
+
+linha 51: A / data do dia / Remopt_Emissão_Inicial
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+2-Dados do Site
+
+linha 13: depende da região do site
+
+TLE - Bruno Amarante
+TCO - Erasmo Eder Viana
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+3-Energia AC
+
+puxa info de outra planilha em que fazemos a energia (Dimensionamento de Energia_RevB)
+
+campos a preencher
+
+linha 51: consumo atual, consumo estimado e delta
+linha 76: Dimensionamento de Energia_RevB / linha 25
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+4-Energia DC 1
+
+da pra colocar as frases automáticas em OBS de acordo com o quadro de DJ?
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+5-Instalação
+
+ 
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+6-Cenário
+
+montar diagrama de RF
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+7-RF Solution
+
+trazer o diagrama da sheet 6-Cenário (atual e proposto)
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+8-Data Sheet
+
+precisamos indicar todos os data sheets dos equipamentos a instalar.
+
+daria para subir esses data sheets (print) em pastas no onebox de forma organizada, separada por pastas e ja subir direto de acordo com a sheet 5-Instalação?
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+9-Layout
+
+fazer aquele esquema de abrir o google earth automático pra tirar o print
+
+demais prints do cad
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+10-Carregamento
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+11-ANEXO-Levantamento da EV
+
+linha 12: tim br / coluna B
+
+linha 17:
+linha 18:
+linha 19:
+
+demais infos ja puxam de formulas
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+13-Relatorio Foto
+
+habilitar as macros de deixar enquadrada as imagens

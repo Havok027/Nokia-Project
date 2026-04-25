@@ -1,0 +1,95 @@
+NFORMAÇÕES
+ 
+TLE - Bruno Amarante
+TCO - Erasmo Eder Viana
+ 
+700 - ARPB - 1 FO
+1800 ou 1800/1800S - AREA -2 FO GL 1800
+2100 - ARGA - 1 FO
+2600 ou 2600/2600P - ARHA - 1 FO
+1800/2100/2600 - AHEGHA (mimo 4x4 ou mMIMO)
+mimo 4x4, se for só 1 frequência, exemplo LTE 1800, você instala 2xAREA
+se for 1800/2100, 2100/2600, 1800/2100/2600. Compensa instalar 1xAHEGHA
+Se for mMIMO 2 AHEGHAS + antena TWIN BEAN
+
+***AHEGC 1800/2100 - verficar quantos FO usa ela faz dois setores 
+
+5G - G3 
+3500 AVQA (1 FO).
+
+ 
+TCO GSM 1800 ativa na AREA (quando for instalar L1800). Se não for instalar (LTE 1800) retirar RRUs
+
+**DF  MANTER GSM 1800 COMO ERICSSON
+se tiver L1800, vc vai ativar G1800 NOKIA e manter o G1800 Ericsson
+ 
+WCDMA/LTE 2100 - WCDMA mantem no equipamento existente. Se tiver swap do LTE 2100, confirmar no PE (TO BE 4G - COLUNA CM)
+TLE GSM 1800 mantem no equipamento existente. Se tiver GSM/LTE 1800 com swap do LTE 1800, manter GSM no equipamento existente e instalar LTE na AREA.
+   WCDMA mantem no equipamento existente.
+AHEGHA não faz GSM 1800. Quando necessário GSM 1800 precisa ter 1 AREA adicional.
+ 
+Para GSM 1800 necessita da placa ABIA e + 1 FO
+Placas AIRSCALE
+AMID = Carcaça/invólucro que fica as placas
+ASIM = Gerencia as placas de capacidade
+ABIA/ABIO/ABIP/ABIQ = placas de capacidade, fazem a conexão com as RRUs ou antenas ativas (5G)
+ABIA - estamos pedindo somente para o GSM
+ABIO - estamos pedindo para equipamentos LTE + antenas do projeto G5 ou 5G (AQQA)
+ABIP - estamos pedindo para a antena AVNQA (2300/3500)
+ABIQ - estamos pedindo para a antena AVQA (3500)
+ABIA - 6 portas FO física e 12 portas lógicas
+ABIO - 9 portas FO física e 24 portas lógicas
+ 
+nova premissa:
+Na Regional TCN (TCO +TNO) sempre que houver o MIMO 4x4 com AHEGHA (l1800/l2100/L2600) deverá ser previsto o usos de 2x FO por módulo, dada a configuração de bandas e portadores desta região. Demais Regionais segue o mesmo cenário com 1x FO por AHEGHA.
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------
+ 
+PREMISSAS CABOS:
+padronização e utilização de Cabo DC no projeto, conforme segue:
+DC 
+1.	Padronizado utilização de cabos: 35m / 70m / 100m e 150m, destacados em verde no arquivo abaixo;
+2.	Deixamos de usar cabos com: 25m / 50m e 80m;
+FO
+30 / 70 / 100 / 150 e 200 mts.
+Não teremos mais FOs de 20mts e 50mts.
+
+Cabo Jumper 1/2" 3,5,9,17 e 30m
+-------------------------------------------------------------------------------------------
+Boa noite pessoal
+Projeto G3
+DOCD
+Nome do projeto - Swap Nacional
+ 
+Destinação - Armazenagem
+TCO/ TNE - CDL-PE
+ 
+TSP/TLE - CDL-SJC
+1.	TSP        CDL Campinas/SP
+ 
+2.	TCO      CDL Brasília/DF
+ 
+3.	TNO      CDL Brasília/DF
+ 
+4.	TLE        CDL Campinas/SP
+ 
+5.	TRJ         CDL Campinas/SP
+ 
+6.	TNE       CDL Pernambuco - Jaboatão
+ 
+7.	TSL        CDL Curitiba
+Esse é para G5
+------------------------------------------------------------------------------------------
+Coordenador
+ 
+TSP	Jonathan Santana
+TCO	Erasmo Eder Viana
+TNO (CASA NOVA)	Luiz Felix
+TNO (CASA EXISTENTE)	Diego Magalhães
+TLE	Bruno Amarante
+TNE	Sandro Ribeiro
+TSL	Luiz Antonio Spurio Filho
