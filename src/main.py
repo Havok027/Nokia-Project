@@ -1,162 +1,180 @@
-import pandas as pd
-import os
+import customtkinter as ctk
+import sys
+from tkinter import messagebox,filedialog
 
-# 1. Exportar informações
-# 2. Criar um menu interativo para exibir as informações tratadas de forma simplificada ao usuario.
-# 3. Exportar estas informações após usuario conferir para TSSR.
-# 4. Criar interface no windows e executar como .exe
+# ============
+# Cores usadas
+# ============
+# cor_adaptavel = ("#EBEBEB", "#1A1C1E") 
 
-# ------------------------------------------------------
-# MAURO:
-# 1. Criar sistema que verifica liçensa online.
-# Para atribuir a ferramenta apenas para assinantes.
-# Criar uma maneira simplificada para renovar o pacote, sera vendido mensal.
+# Light: Cinza Gelo (suave) | Dark: Azul Profundo (Nokia/TIM)
+cor_adaptavel = ("#DDE1E7", "#111827")
+cor_nokia = ("#124191",'#9FA2A7') # Azul oficial Nokia para detalhes
+hover_nokia = ("#a4a6aa","#164aa5")
+cor_texto_botao = ("white", "#111827")
+fonte_h1 = ('Roboto',16,"bold")
+fonte_page = ('Roboto',12,"bold")
 
-# ------------------------------------------------------
-# Definição de Funções e Classes:
-# ------------------------------------------------------
-class Menu:
-    def __init__(self, titulo_padrao):
-        self.titulo = titulo_padrao
+# ----------------
+# Variaveis globais do customtkinter
+# ----------------
 
-    def exibir_cabecalho(self, novo_titulo=None):
-        # Limpa o terminal e exibe o título estilizado
-        os.system('cls' if os.name == 'nt' else 'clear')
-        texto = novo_titulo if novo_titulo else self.titulo
-        borda = "*" * (len(texto) + 4)
-        print(f"{borda}")
-        print(f"* {texto} *")
-        print(f"{borda}\n")
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
 
-    def mostrar_opcoes(self, lista, titulo_tela=None):
-        self.exibir_cabecalho(titulo_tela)
-        for i, item in enumerate(lista, start=1):
-            print(f"{i} - {item}")
-        print("0 - Sair")
+# ----------------
+# Funções
+# ----------------
 
-class Spazio:
-    def __init__(self,df_spazio):
-        # Passar df da spazio para manter salvo na memoria
-        self.df_spazio = df_spazio
+def sair_app():
+    """Sair do app finalizando tudo."""
+    sys.exit()
 
-        # Lista das colunas da SPAZIO.
-        # Ajustar aqui se precisar mudar as colunas exibidas.
-        self.colunas = [
-            'SITE_ID',
-            'TIPO_DE_LOGRADOURO',
-            'LOGRADOURO',
-            'NUMERO',
-            'COMPLEMENTO',
-            'BAIRRO',
-            'ESTADO',
-            'CEP',
-            'REGIONAL',
-            'LATITUDE',
-            'LONGITUDE',
-            'TIPO_DA_TORRE',
-            'STATION_ID',
-            'FORNECEDOR_DE_EV',
-            'OBSERVACAO_THQ',
-            'SITUACAO'
-        ]
+# ----------------
+# Controle de Paginas do AppRF
+# ----------------
+class Pag_pesquisa(ctk.CTkFrame):
+    def __init__(self, master, width = 200, height = 200, corner_radius = None, border_width = None, bg_color = "transparent", fg_color = None, border_color = None, background_corner_colors = None, overwrite_preferred_drawing_method = None, **kwargs):
+        super().__init__(master, width, height, corner_radius, border_width, bg_color, fg_color, border_color, background_corner_colors, overwrite_preferred_drawing_method, **kwargs)
 
-    def spazio_info(self, site_name):
-        # 1. Filtra a linha
-        df_filtro = self.df_spazio[self.df_spazio['SITE_ID'].astype(str) == str(site_name)]
+# ----------------
+# Config. AppRF
+# ----------------
+class AppRF(ctk.CTk):
+    def __init__(self):
+        super().__init__()
 
-        # 2. Se não encontrou nada, retorna o df vazio direto para evitar erros
-        if df_filtro.empty:
-            return df_filtro
+        # ----------------
+        # Config. Janela Principal
+        # ----------------
 
-        # 3. Retorna apenas as colunas da sua lista que NÃO estão vazias
-        return df_filtro[self.colunas].dropna(axis=1, how='all')
+        self.geometry('800x600')
+        self.title("NOKIA RF - Tool")
 
+        self.grid_columnconfigure(1,weight=1)
+        self.grid_rowconfigure(0,weight=1)
 
-# ------------------------------------------------------
-# Configurações de Dados:
-# ------------------------------------------------------
-# Define o caminho relativo ao arquivo .py
-caminho_file = os.path.dirname(os.path.abspath(__file__))
+        # Variavel de controle de TELA 
+        self.frame_atual = None
 
-# Carrega o DataFrame (ajuste o caminho se necessário)
-try:
-    # Carregar arquivo com python calamine, mais rapido para carregar.
-    df_spazio = pd.read_excel(os.path.join(caminho_file, "data", "SPAZIO_NOKIA.xlsx"),engine="calamine") # Carregar data frame Spazio NOKIA, indica o caminho relativo ao main.py
-except Exception as e:
-    print(f"ERRO REAL: {type(e).__name__} - {e}") # Isso vai imprimir o nome do erro (ex: FileNotFoundError)
-    df_spazio = pd.DataFrame()
+        # Container principal.
+        # As janelas serão exibidas com os parametros dele.
+        self.container_principal = ctk.CTkFrame(self, fg_color="transparent")
+        self.container_principal.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+        
+        # ----------------
+        # Containers
+        # ----------------
+        
+        # Side Bar
+        self.criar_side_bar()
+        self.criar_bts_side()
 
-# ------------------------------------------------------
-# Instanciação e Loop Principal:
-# ------------------------------------------------------
-main_menu = Menu("MENU PRINCIPAL")
-app_spazio = Spazio(df_spazio)
+        self.mostrar_pagina()
 
-while True:
-    opcoes = ['Buscar Site ID', 'Teste de Conexão']
-    main_menu.mostrar_opcoes(opcoes) 
-    
-    selecao = input("\nEscolha uma opção: ").strip()
+        # Trocas de temas
+        self.criar_tema_switch()
 
-    match selecao:
-        case "1":
-            site_id_pesquisa = input('\nInserir o SITE ID a pesquisar: ').strip()
-            
-            try:
-                # Realiza a busca através da classe
-                df_info_site = app_spazio.spazio_info(site_id_pesquisa)
-                 
-                main_menu.exibir_cabecalho("RESULTADO DA BUSCA")
-                
-                if not df_info_site.empty:
-                    print("Informações encontradas na Spazio:")
-                    # Criamos uma lista de nomes: ['SITE 1', 'SITE 2', ...] baseada na quantidade de linhas
-                    novos_nomes = [f"SITE {i}" for i in range(1, len(df_info_site) + 1)]
+        # criar bototes da 
 
-                    df_info_site.index = novos_nomes
-                    
-                    # O display.to_string() ajuda a não cortar colunas no print
-                    #print(df_info_site.to_string(index=False))
-                    print(df_info_site.T)
+    # -----------------------
+    # Config. Side Bar [FIXO]
+    # -----------------------
+    def criar_side_bar(self):
+        """Criado 2 frames para sobreposição para efeito das bordas apenas no frama inferior."""
 
-                    # Caso encontre mais de 1 site.
-                    if len(novos_nomes)>1:
-                        print(f"\nEncontrado: {len(novos_nomes)} sites. \nEscolha qual site devo considerar:")
-                        for i,item in enumerate(novos_nomes,start=1):
-                            print(f"{i} - {df_info_site.iloc[i-1]['SITE_ID']}")
+        # frame com bordas para adicoinar efeito apenas na parte inferior
+        # Para alterar a largura do side BAR
+        # Alterar os parametros  "width=" das duas variaveis
 
-                        # Adicionar critica de dados para sempre ser INT de 1 ate a quantidade de item.
-                        while True:
-                            try:
-                                escolha = int(input('\nInseri o numero correspondente a opção desejada:'))
-                                if 0 < escolha < len(novos_nomes)+1: 
-                                    print('Opção Invalida')
-                                    break
-                            except:
-                                print('Escolher uma opção valida.')
-                        
-                        main_menu.exibir_cabecalho("RESULTADO DA BUSCA")
-                        print("Informações encontradas na Spazio:")
-                        df_info_site = df_info_site.iloc[escolha-1]
-                        print(df_info_site.T)
-                    
-                    input("\nPressione ENTER para voltar ao menu...")  
-                else:
-                    print(f'O SITE ID "{site_id_pesquisa}" não foi encontrado na base.')
+        self.sidebar1 = ctk.CTkFrame(self,
+                                    width=150,
+                                    height=590,
+                                    corner_radius=20,
+                                    fg_color= cor_adaptavel
+                                    )
+        self.sidebar1.grid(row=0,column=0,padx=(5,2),sticky="n")
 
-            except Exception as e:
-                print(f'Ocorreu um erro na pesquisa: {e}')
-                input("Pressione ENTER para continuar...")
+        # Frame principal, onde sera incluido os botoes.
+        self.sidebar = ctk.CTkFrame(self,
+                                    width=150,
+                                    height=570,
+                                    corner_radius=0,
+                                    fg_color= cor_adaptavel
+                                    )
+        self.sidebar.grid(row=0,column=0,padx=(5,2),sticky="n")
+        self.sidebar.pack_propagate(False) # Impedir o reajuste de tamanho do frame
+        
+    def mostrar_pagina(self, nome_pagina=None):
+            """Troca o conteúdo do container_principal."""
+            # Destrir pagina atual.
+            if self.frame_atual is not None:
+                self.frame_atual.destroy()
 
-        case "2":
-            main_menu.exibir_cabecalho("TESTE DE CONEXÃO")
-            print("Funcionalidade em desenvolvimento...")
-            input("\nPressione ENTER para voltar...")
+            # Decide qual página instanciar
+            if nome_pagina == "Pesquisar":
+                self.frame_atual = Pag_pesquisa(self.container_principal, fg_color="transparent")
+            else:
+                # Página Home temporária
+                self.frame_atual = ctk.CTkFrame(self.container_principal, fg_color="transparent")
+                ctk.CTkLabel(self.frame_atual, 
+                            text="Bem-vindo à ferramenta RF", 
+                            font=fonte_h1).pack(pady=(100, 0), expand=True)
+                ctk.CTkLabel(self.frame_atual, 
+                            text="Dev.: Mauro Moreira", 
+                            font=fonte_page).pack(side='bottom', anchor='e', padx=20, pady=10)
 
-        case "0":
-            print('Saindo do sistema...')
-            break
-            
-        case _:
-            print("\nOpção inválida! Tente novamente.")
-            input("Pressione ENTER...")
+            self.frame_atual.pack(fill="both",padx=2, expand=True)
+
+    def criar_tema_switch(self):
+        self.tema_switch = ctk.CTkSwitch(self.sidebar,
+                                  width=100,
+                                  text="Dark Mode",
+                                  progress_color="#124191",
+                                  command=self.alterar_tema,
+                                  )
+        self.tema_switch.pack(pady=1,side="bottom")
+
+        # AppRF iniciado em tema "DARK", iniciar switch setado em dark mode
+        self.tema_switch.select()
+
+    def alterar_tema(self):
+        """ Ajuste de dark/ligh mode. """
+        if self.tema_switch.get() == 1:
+            ctk.set_appearance_mode("dark")
+        else:
+            ctk.set_appearance_mode("light")
+
+    # Todos os elementos de Side bar aqui
+    def criar_bts_side(self):
+        """Criar/ajustar todos os elementos de Side Bar atraves desta função."""
+        self.menu_label = ctk.CTkLabel(self.sidebar,width=100,height=28,
+                            font=fonte_h1,
+                            text="MENU"
+                            )
+        self.menu_label.pack(pady=(5,10))
+        
+        # Criar botoes dinamicamente com base nos nomes
+        mapa_funcoes = {
+            "Pesquisar": self.mostrar_pagina('Pesquisar'),
+            "Sair": sair_app
+        }
+
+        # loop para criar botões com base no mapa_funcoes
+        for nome, funcao in mapa_funcoes.items():
+            btn = ctk.CTkButton(self.sidebar,
+                                        width=100,
+                                        height=28,
+                                        font=fonte_page,
+                                        text=nome,
+                                        fg_color=cor_nokia,
+                                        command=funcao,
+                                        hover_color=hover_nokia,
+                                        text_color=cor_texto_botao)
+            btn.pack(padx=10, pady=5, fill="x")
+
+    def criar_pagina_principal():
+        pass
+app = AppRF()
+
+app.mainloop()
