@@ -38,6 +38,102 @@ class Pag_pesquisa(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
+        ctk.CTkLabel(
+            self,
+            width=50,
+            height=25,
+            text="Site ID:",
+            font=fonte_h1,
+        ).grid(row=0,column=0,padx=5,sticky='ns')
+        
+        self.entrada_id = ctk.CTkEntry(
+            self,
+            placeholder_text="-- SITE ID/END ID --",
+            width=125,
+            height=25,
+            border_color=cor_nokia
+        )
+        self.entrada_id.grid(row=0,column=1,pady=5)
+
+        self.bt_pesquisar = ctk.CTkButton(self,
+                        width=100,
+                        height=25,
+                        font=fonte_page,
+                        text="Pesquisar",
+                        fg_color=cor_nokia,
+                        # command=funcao,
+                        hover_color=hover_nokia,
+                        text_color=cor_texto_botao)
+        self.bt_pesquisar.grid(row=0,column=2,padx=5,sticky='ew')
+
+class Pag_update(ctk.CTkFrame):
+    """ Gestão dos itens para criar banco de dados."""
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+        
+        ctk.CTkLabel(self,
+            width=50,
+            height=25,
+            text="Atualizar Banco de dados do App.",
+            font=fonte_h1,
+        ).pack(pady=10)
+
+        # Container para linhar botoes
+        container_botoes = ctk.CTkFrame(self,fg_color="transparent")
+        container_botoes.pack(pady=5)
+        
+        self.bt_att_spazio = ctk.CTkButton(container_botoes,
+                        width=100,
+                        height=25,
+                        font=fonte_page,
+                        text="SPAZIO",
+                        fg_color=cor_nokia,
+                        # command=funcao,
+                        hover_color=hover_nokia,
+                        text_color=cor_texto_botao)
+        self.bt_att_spazio.pack(side='left',padx=5)
+
+        self.bt_att_spazio = ctk.CTkButton(container_botoes,
+                        width=100,
+                        height=25,
+                        font=fonte_page,
+                        text="Rollout",
+                        fg_color=cor_nokia,
+                        # command=funcao,
+                        hover_color=hover_nokia,
+                        text_color=cor_texto_botao)
+        self.bt_att_spazio.pack(side='left',padx=5)
+
+        self.bt_att_spazio = ctk.CTkButton(container_botoes,
+                        width=100,
+                        height=25,
+                        font=fonte_page,
+                        text="Nominal",
+                        fg_color=cor_nokia,
+                        # command=funcao,
+                        hover_color=hover_nokia,
+                        text_color=cor_texto_botao)
+        self.bt_att_spazio.pack(side='left',padx=5)
+
+        self.bt_att_spazio = ctk.CTkButton(container_botoes,
+                        width=100,
+                        height=25,
+                        font=fonte_page,
+                        text="MAE",
+                        fg_color=cor_nokia,
+                        # command=funcao,
+                        hover_color=hover_nokia,
+                        text_color=cor_texto_botao)
+        self.bt_att_spazio.pack(side='left',padx=5)
+
+        ctk.CTkLabel(self,
+            width=50,
+            height=25,
+            text="""Para atualizar o banco de dados.
+            Basta clicar no botão com o nome da planilha a ser atualizada.""",
+            font=fonte_h1,
+        ).pack(pady=10,side='bottom')
+
 # ----------------
 # Config. AppRF
 # ----------------
@@ -115,6 +211,8 @@ class AppRF(ctk.CTk):
             # Decide qual página instanciar
             if nome_pagina == "Pesquisar":
                 self.frame_atual = Pag_pesquisa(self.container_principal, fg_color="transparent")
+            elif nome_pagina == "Update":
+                self.frame_atual = Pag_update(self.container_principal,fg_color="transparent")
             else:
                 # Página Home temporária
                 self.frame_atual = ctk.CTkFrame(self.container_principal, fg_color="transparent")
@@ -157,7 +255,8 @@ class AppRF(ctk.CTk):
         
         # Criar botoes dinamicamente com base nos nomes
         mapa_funcoes = {
-            "Pesquisar": self.mostrar_pagina('Pesquisar'),
+            "Pesquisar": lambda: self.mostrar_pagina('Pesquisar'),
+            "Update" : lambda: self.mostrar_pagina('Update'),
             "Sair": sair_app
         }
 
@@ -174,7 +273,7 @@ class AppRF(ctk.CTk):
                                         text_color=cor_texto_botao)
             btn.pack(padx=10, pady=5, fill="x")
 
-    def criar_pagina_principal():
+ 
         pass
 app = AppRF()
 
