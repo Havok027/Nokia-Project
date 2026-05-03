@@ -26,18 +26,34 @@
 
 ## 🚀 Roadmap de Desenvolvimento | Development Roadmap
 
-- [x] **Arquitetura & Planejamento / Architecture & Planning** (Abril/April 2024)
-  - Definição das bibliotecas / Library definition (`Pandas`, `Openpyxl`).
-- [x] **Módulo de Extração Individual / Individual Extraction Module** (Em andamento / In Progress)
-  - Leitura isolada das planilhas e tratamento inicial / Isolated reading and initial data cleaning.
+- [x] **Arquitetura & Planejamento / Architecture & Planning**
+  - [x] Definição das bibliotecas base / Base libraries (`Pandas`, `CustomTkinter`, `Openpyxl`, `sys`).
+  - [x] Estruturação da lógica de classes (POO) / OOP Class structuring.
+
+- [ ] **Interface Gráfica (GUI) / Graphical User Interface** (Em andamento / In Progress) 🏗️
+  - [x] Estrutura principal e Sidebar fixa / Main structure and fixed Sidebar.
+  - [x] Sistema de navegação dinâmica entre Frames / Dynamic Frame navigation system.
+  - [x] Implementação de Dark/Light mode adaptável / Adaptive Dark/Light mode.
+  - [ ] Design da Página de Pesquisa (Input/Output) / Search Page Design.
+  - [ ] Design da Página de Update (Log Upload) / Update Page Design.
+
+- [ ] **Módulo de Extração Individual / Individual Extraction Module**
+  - [ ] Leitura isolada das planilhas / Isolated spreadsheet reading.
+  - [ ] Tratamento inicial de dados (Data Cleaning) / Initial data cleaning.
+
 - [ ] **Script de Merge (Unificação) / Merge Script (Unification)**
-  - Cruzamento das bases via Site ID / Merging databases via Site ID.
+  - [ ] Cruzamento das bases via Site ID / Merging databases via Site ID.
+  - [ ] Validação de integridade dos dados / Data integrity validation.
+
 - [ ] **Gerador de Textos TSSR / TSSR Text Generator**
-  - Lógica de automação para descritivos Nokia-TIM / Automation logic for Nokia-TIM descriptions.
+  - [ ] Lógica de automação para descritivos Nokia-TIM / Automation logic for Nokia-TIM descriptions.
+
 - [ ] **Classificação de Imagens / Image Classification (ML)**
-  - Treinamento do modelo de fotos / Photo model training.
-- [ ] **Integração Final / Final Integration**
-  - Exportação completa (Dados + Fotos) / Complete export (Data + Photos).
+  - [ ] Treinamento do modelo de fotos / Photo model training (Computer Vision).
+
+- [ ] **Integração Final & Build / Final Integration & Build**
+  - [ ] Conexão Interface <-> Backend / GUI to Backend connection.
+  - [ ] Compilação para executável (.exe) / Build to executable.
 
 ---
 
