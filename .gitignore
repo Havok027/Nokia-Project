@@ -4,6 +4,7 @@
 *.csv
 *.xls
 *.xlsm
+*.db
 
 # Ignora bases de dados locais
 database/

@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import sys
 from tkinter import messagebox,filedialog
+from database import BancoDeDados
 
 # ============
 # Cores usadas
@@ -23,7 +24,7 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
 # ----------------
-# Funções
+# Funções da Tela
 # ----------------
 
 def sair_app():
@@ -88,7 +89,7 @@ class Pag_update(ctk.CTkFrame):
                         font=fonte_page,
                         text="SPAZIO",
                         fg_color=cor_nokia,
-                        # command=funcao,
+                        command=lambda: BancoDeDados('spazio'),
                         hover_color=hover_nokia,
                         text_color=cor_texto_botao)
         self.bt_att_spazio.pack(side='left',padx=5)
@@ -256,6 +257,7 @@ class AppRF(ctk.CTk):
         # Criar botoes dinamicamente com base nos nomes
         mapa_funcoes = {
             "Pesquisar": lambda: self.mostrar_pagina('Pesquisar'),
+            "SCI": lambda: self.mostrar_pagina("SCI"),
             "Update" : lambda: self.mostrar_pagina('Update'),
             "Sair": sair_app
         }
