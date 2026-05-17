@@ -94,38 +94,38 @@ class Pag_update(ctk.CTkFrame):
                         text_color=cor_texto_botao)
         self.bt_att_spazio.pack(side='left',padx=5)
 
-        self.bt_att_spazio = ctk.CTkButton(container_botoes,
+        self.bt_att_rollout = ctk.CTkButton(container_botoes,
                         width=100,
                         height=25,
                         font=fonte_page,
                         text="Rollout",
                         fg_color=cor_nokia,
-                        # command=funcao,
+                        command=lambda: BancoDeDados('rollout'),
                         hover_color=hover_nokia,
                         text_color=cor_texto_botao)
-        self.bt_att_spazio.pack(side='left',padx=5)
+        self.bt_att_rollout.pack(side='left',padx=5)
 
-        self.bt_att_spazio = ctk.CTkButton(container_botoes,
+        self.bt_att_nominal = ctk.CTkButton(container_botoes,
                         width=100,
                         height=25,
                         font=fonte_page,
                         text="Nominal",
                         fg_color=cor_nokia,
-                        # command=funcao,
+                        command=lambda: BancoDeDados('nominal'),
                         hover_color=hover_nokia,
                         text_color=cor_texto_botao)
-        self.bt_att_spazio.pack(side='left',padx=5)
+        self.bt_att_nominal.pack(side='left',padx=5)
 
-        self.bt_att_spazio = ctk.CTkButton(container_botoes,
+        self.bt_att_mae = ctk.CTkButton(container_botoes,
                         width=100,
                         height=25,
                         font=fonte_page,
                         text="MAE",
                         fg_color=cor_nokia,
-                        # command=funcao,
+                        command=lambda: BancoDeDados('mae'),
                         hover_color=hover_nokia,
                         text_color=cor_texto_botao)
-        self.bt_att_spazio.pack(side='left',padx=5)
+        self.bt_att_mae.pack(side='left',padx=5)
 
         ctk.CTkLabel(self,
             width=50,
