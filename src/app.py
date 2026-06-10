@@ -2,6 +2,7 @@ import customtkinter as ctk
 import sys
 from tkinter import messagebox,filedialog
 from database import BancoDeDados
+from locateSiteID import Locate_db
 
 # ============
 # Cores usadas
@@ -35,37 +36,55 @@ def sair_app():
 # Controle de Paginas do AppRF
 # ----------------
 class Pag_pesquisa(ctk.CTkFrame):
-    """ Pagina de pesquisa conforme caracteristicas de container principal. de AppRF."""
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        ctk.CTkLabel(
-            self,
-            width=50,
-            height=25,
-            text="Site ID:",
-            font=fonte_h1,
-        ).grid(row=0,column=0,padx=5,sticky='ns')
-        
-        self.entrada_id = ctk.CTkEntry(
-            self,
-            placeholder_text="-- SITE ID/END ID --",
-            width=125,
-            height=25,
-            border_color=cor_nokia
-        )
-        self.entrada_id.grid(row=0,column=1,pady=5)
+        self.grid_columnconfigure(0, weight=1)
 
-        self.bt_pesquisar = ctk.CTkButton(self,
-                        width=100,
-                        height=25,
-                        font=fonte_page,
-                        text="Pesquisar",
-                        fg_color=cor_nokia,
-                        # command=funcao,
-                        hover_color=hover_nokia,
-                        text_color=cor_texto_botao)
-        self.bt_pesquisar.grid(row=0,column=2,padx=5,sticky='ew')
+        self.container_input = ctk.CTkFrame(self, fg_color="transparent")
+        self.container_input.grid(row=0, column=0, pady=10, padx=10, sticky="ew")
+
+        ctk.CTkLabel(self.container_input, text="Site ID:", font=fonte_h1).pack(side="left", padx=5)
+        
+        self.entrada_id = ctk.CTkEntry(self.container_input, placeholder_text="-- SITE ID --", width=125, border_color=cor_nokia)
+        self.entrada_id.pack(side="left", padx=5)
+
+        self.bt_pesquisar = ctk.CTkButton(
+            self.container_input,
+            text="Pesquisar",
+            fg_color=cor_nokia,
+            hover_color=hover_nokia,
+            text_color=cor_texto_botao,
+            font=fonte_page,
+            width=100,
+            command=self.executar_pesquisa
+        )
+        self.bt_pesquisar.pack(side="left", padx=5)
+
+        # Container de Resultados (Área vazia abaixo)
+        self.container_resultado = ctk.CTkScrollableFrame(self, fg_color="transparent")
+        self.container_resultado.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
+        self.grid_rowconfigure(1, weight=1) # Faz o container crescer para ocupar o resto da tela
+
+    def executar_pesquisa(self):
+        site_id = self.entrada_id.get()
+        # Localizador vem do LocateDB.py
+        dados = Locate_db.locate_spazio(site_id)
+        
+        # Limpa resultados anteriores
+        for widget in self.container_resultado.winfo_children():
+            widget.destroy()
+            
+        # Exibe novos resultados
+        if dados:
+            for chave, valor in dados.items():
+                # Frame para alinhar melhor chave/valor
+                linha = ctk.CTkFrame(self.container_resultado, fg_color="transparent")
+                linha.pack(fill="x", pady=1)
+                ctk.CTkLabel(linha, text=f"{chave}:", font=("Arial", 12, "bold"), width=150, anchor="w").pack(side="left")
+                ctk.CTkLabel(linha, text=str(valor), anchor="w").pack(side="left")
+        else:
+            ctk.CTkLabel(self.container_resultado, text="Nenhum dado encontrado.", text_color="red").pack()
 
 class Pag_update(ctk.CTkFrame):
     """ Gestão dos itens para criar banco de dados."""
@@ -205,7 +224,7 @@ class AppRF(ctk.CTk):
         
     def mostrar_pagina(self, nome_pagina=None):
             """Troca o conteúdo do container_principal."""
-            # Destrir pagina atual.
+            # Destruir pagina atual.
             if self.frame_atual is not None:
                 self.frame_atual.destroy()
 
@@ -247,7 +266,8 @@ class AppRF(ctk.CTk):
 
     # Todos os elementos de Side bar aqui
     def criar_bts_side(self):
-        """Criar/ajustar todos os elementos de Side Bar atraves desta função."""
+        """Criar/ajustar todos os elementos de Side Bar atraves desta função.
+        Atribui funçao aos botoes da SIDE BAR."""
         self.menu_label = ctk.CTkLabel(self.sidebar,width=100,height=28,
                             font=fonte_h1,
                             text="MENU"

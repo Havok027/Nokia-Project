@@ -30,16 +30,23 @@
   - [x] Definição das bibliotecas base / Base libraries (`Pandas`, `CustomTkinter`, `Openpyxl`, `sys`).
   - [x] Estruturação da lógica de classes (POO) / OOP Class structuring.
 
-- [ ] **Interface Gráfica (GUI) / Graphical User Interface** (Em andamento / In Progress) 🏗️
+- [x] **Interface Gráfica (GUI) / Graphical User Interface** 🏗️
   - [x] Estrutura principal e Sidebar fixa / Main structure and fixed Sidebar.
   - [x] Sistema de navegação dinâmica entre Frames / Dynamic Frame navigation system.
   - [x] Implementação de Dark/Light mode adaptável / Adaptive Dark/Light mode.
-  - [ ] Design da Página de Pesquisa (Input/Output) / Search Page Design.
-  - [ ] Design da Página de Update (Log Upload) / Update Page Design.
+  - [x] Design da Página de Pesquisa (Input/Output) / Search Page Design.
+  - [x] Design da Página de Update (Log Upload) / Update Page Design.
+
+- [x] **Interface Gráfica (GUI) para Relatório SCI / Graphical User Interface for SCI Report** 🏗️
+  - [ ] Botões de opçoes de Relatorios SCI / Buttons for choice SCI Report Generator.
 
 - [ ] **Módulo de Extração Individual / Individual Extraction Module**
   - [ ] Leitura isolada das planilhas / Isolated spreadsheet reading.
-  - [ ] Tratamento inicial de dados (Data Cleaning) / Initial data cleaning.
+    - [x] SPAZIO
+    - [ ] MAE
+    - [ ] Rollout
+    - [ ] NOMINAL PLAN
+  - [x] Tratamento inicial de dados (Data Cleaning) / Initial data cleaning.
 
 - [ ] **Script de Merge (Unificação) / Merge Script (Unification)**
   - [ ] Cruzamento das bases via Site ID / Merging databases via Site ID.
